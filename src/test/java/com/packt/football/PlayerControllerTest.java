@@ -59,5 +59,8 @@ public class PlayerControllerTest {
   public void testReadPlayers_doesnt_exist() throws Exception {
     String id = "1884823";
     given(footballService.getPlayer(id)).willThrow(new NotFoundException("Player not found"));
+
+    mvc.perform(MockMvcRequestBuilders.get("/players/" + id).accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNotFound());
   }
 }
