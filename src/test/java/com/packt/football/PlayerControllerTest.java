@@ -63,4 +63,11 @@ public class PlayerControllerTest {
     mvc.perform(MockMvcRequestBuilders.get("/players/" + id).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
+
+  @Test
+  public void testDeletePlayer() throws Exception {
+    String id = "1884823";
+    mvc.perform(MockMvcRequestBuilders.delete("/players/" + id).accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
 }
