@@ -20,7 +20,7 @@ public class PlayerController {
 
   @PostMapping
   public String createPlayer(@RequestBody String name) {
-    return System.out.format("Player %s created", name).toString();
+    return String.format("Player %s created", name);
   }
 
   @GetMapping("/{name}")
@@ -30,11 +30,11 @@ public class PlayerController {
 
   @DeleteMapping("/{name}")
   public String deletePlayer(@PathVariable String name) {
-    return System.out.format("Player %s deleted", name).toString();
+    return String.format("Player %s deleted", name);
   }
 
   @PutMapping("/{name}")
   public String updatePlayer(@PathVariable String name, @RequestBody String newName) {
-    return System.out.format("Player %s updated to %s", name, newName).toString();
+    return String.format("Player %s updated to %s", name, newName);
   }
 }
