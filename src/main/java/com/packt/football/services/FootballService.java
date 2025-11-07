@@ -48,4 +48,13 @@ public class FootballService {
       players.remove(id);
     }
   }
+
+  public Player updatePlayer(Player player) {
+    if (!players.containsKey(player.id())) {
+      throw new NotFoundException("The player does not exist");
+    } else {
+      players.put(player.id(), player);
+      return player;
+    }
+  }
 }
