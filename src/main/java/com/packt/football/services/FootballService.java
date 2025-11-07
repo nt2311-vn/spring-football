@@ -4,6 +4,7 @@ import com.packt.football.exceptions.AlreadyExistsException;
 import com.packt.football.exceptions.NotFoundException;
 import com.packt.football.model.Player;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,14 +13,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class FootballService {
   private final Map<String, Player> players =
-      Map.ofEntries(
-          Map.entry(
-              "1884823",
-              new Player("1884823", 5, "Ivana ANDRES", "Defender", LocalDate.of(1994, 07, 13))),
-          Map.entry(
-              "325636",
-              new Player(
-                  "325636", 11, "Alexia PUTELAS", "Midfielder", LocalDate.of(1994, 02, 04))));
+      new HashMap<>(
+          Map.ofEntries(
+              Map.entry(
+                  "1884823",
+                  new Player("1884823", 5, "Ivana ANDRES", "Defender", LocalDate.of(1994, 07, 13))),
+              Map.entry(
+                  "325636",
+                  new Player(
+                      "325636", 11, "Alexia PUTELAS", "Midfielder", LocalDate.of(1994, 02, 04)))));
 
   public List<Player> listPlayers() {
     return players.values().stream().collect(Collectors.toList());
