@@ -70,4 +70,22 @@ public class PlayerControllerTest {
     mvc.perform(MockMvcRequestBuilders.delete("/players/" + id).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
+
+  @Test
+  public void testUpdatePlayer_exists() throws Exception {
+    Player player =
+        new Player("1884823", 5, "Ivana ANDRES", "Defender", LocalDate.of(1994, 07, 13));
+
+    given(footballService.updatePlayer(player)).willReturn(player);
+
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.registerModule(new JavaTimeModule());
+
+    mvc.perform(
+            MockMvcRequestBuilders.put("/players/" + player.id())
+                .content(mapper.writeValueAsString(player))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
 }
