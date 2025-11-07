@@ -1,5 +1,7 @@
 package com.packt.football;
 
+import com.packt.football.model.Player;
+import com.packt.football.services.FootballService;
 import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,28 +15,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/players")
 @RestController
 public class PlayerController {
+  private FootballService footballService;
+
+  public PlayerController(FootballService footballService) {
+    this.footballService = footballService;
+  }
+
   @GetMapping
-  public List<String> listPlayers() {
-    return List.of("Ivana ANDES", "Alexia PUTELLAS");
+  public List<Player> listPlayers() {
+    return footballService.listPlayers();
+  }
+
+  @GetMapping("/{id}")
+  public Player readPlayer(@PathVariable String id) {
+    return footballService.getPlayer(id);
   }
 
   @PostMapping
-  public String createPlayer(@RequestBody String name) {
-    return String.format("Player %s created", name);
+  public void createPlayer(@RequestBody Player player) {
+    footballService.addPlayer(player);
   }
 
-  @GetMapping("/{name}")
-  public String readPlayer(@PathVariable String name) {
-    return name;
+  @DeleteMapping("/{id}")
+  public void deletePlayer(@PathVariable String id) {
+    footballService.deletePlayer(id);
   }
 
-  @DeleteMapping("/{name}")
-  public String deletePlayer(@PathVariable String name) {
-    return String.format("Player %s deleted", name);
-  }
-
-  @PutMapping("/{name}")
-  public String updatePlayer(@PathVariable String name, @RequestBody String newName) {
-    return String.format("Player %s updated to %s", name, newName);
+  @PutMapping("/{id}")
+  public void updatePlayer(@PathVariable String id, @RequestBody Player player) {
+    footballService.updatePlayer(player);
   }
 }
